@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Entity
@@ -17,11 +18,11 @@ public class OfficeAssignment implements Serializable {
     //private Long instructorId;
     private String location;
     @Column(name = "time_stamp")
-    private String timeStamp;
+    private Date timeStamp;
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     //@OneToOne(optional = false)
     //@JoinColumn(name = "person_id", nullable = false, insertable = false, updatable = false)
-    @JoinColumn(name = "instructor_id", nullable = false)
+    @JoinColumn(name = "instructor_id", referencedColumnName = "person_id", nullable = false)
     //@OneToOne(mappedBy = "officeAssignment", optional = false)
     private Person person;
 }

@@ -16,8 +16,12 @@ public class DepartmentController {
     public Iterable<Department> getAll() {
         return departmentRepository.findAll();
     }
+    @RequestMapping(method = RequestMethod.POST)
+    public Object save(@RequestBody(required = true) Department department) {
+        return departmentRepository.save(department);
+    }
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH)
-    public Object save(@PathVariable("id") Long id, @RequestBody(required = true) Department department) {
+    public Object update(@PathVariable("id") Long id, @RequestBody(required = true) Department department) {
         department.setDepartmentID(id);
         return departmentRepository.save(department);
     }

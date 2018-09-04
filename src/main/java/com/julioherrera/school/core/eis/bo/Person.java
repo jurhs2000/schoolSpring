@@ -26,6 +26,8 @@ public class Person implements Serializable {
     @OneToMany(mappedBy = "person")
     @Column(name = "student_id")
     private Set<StudentGrade> studentGrade;
+    @OneToMany(mappedBy = "person")
+    private Set<CourseInstructor> courseInstructors;
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "person")
     //@OneToOne(optional = false)
     //@JoinColumn(name = "instructor_id", nullable = false, insertable = false, updatable = false)
