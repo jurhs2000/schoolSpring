@@ -1,5 +1,6 @@
 package com.julioherrera.school.core.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.julioherrera.school.core.bs.dao.CourseRepository;
 import com.julioherrera.school.core.bs.dao.DepartmentRepository;
 import com.julioherrera.school.core.bs.dao.OnlineCourseRepository;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class OnlineCourseController {
     @Autowired
     private OnlineCourseRepository onlineCourseRepository;
-    @Autowired
-    private DepartmentRepository departmentRepository;
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<OnlineCourse> getAll() {
         return onlineCourseRepository.findAll();

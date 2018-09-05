@@ -1,5 +1,6 @@
 package com.julioherrera.school.core.eis.bo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,5 +25,6 @@ public class Course implements Serializable {
     @JoinColumn(name = "department_id")
     private Department department;
     @OneToMany(mappedBy = "course")
+    @JsonIgnore
     private Set<StudentGrade> studentGrade;
 }

@@ -1,10 +1,14 @@
 package com.julioherrera.school.core.controller;
 
+import com.julioherrera.school.core.bs.dao.PersonRepository;
 import com.julioherrera.school.core.bs.dao.StudentGradeRepository;
+import com.julioherrera.school.core.eis.bo.Person;
 import com.julioherrera.school.core.eis.bo.StudentGrade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/v1/studentGrade", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -12,12 +16,23 @@ import org.springframework.web.bind.annotation.*;
 public class StudentGradeController {
     @Autowired
     private StudentGradeRepository studentGradeRepository;
+    @Autowired
+    private PersonRepository personRepository;
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<StudentGrade> getAll() {
         return studentGradeRepository.findAll();
     }
     @RequestMapping(method = RequestMethod.POST)
     public Object save(@RequestBody(required = true) StudentGrade studentGrade) {
+        Person person = personRepository.findById(studentGrade.getPerson().getPersonId()).orElse(null);
+        System.out.println("hola");
+        System.out.println(person);
+        if (person == null) {
+            person = personRepository.save(studentGrade.getPerson());
+            studentGrade.setPerson(person);
+        } else {
+            studentGrade.setPerson(person);
+        }
         return studentGradeRepository.save(studentGrade);
     }
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH)

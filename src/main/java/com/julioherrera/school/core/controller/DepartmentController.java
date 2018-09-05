@@ -22,7 +22,7 @@ public class DepartmentController {
     }
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH)
     public Object update(@PathVariable("id") Long id, @RequestBody(required = true) Department department) {
-        department.setDepartmentID(id);
+        department.setDepartmentId(id);
         return departmentRepository.save(department);
     }
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

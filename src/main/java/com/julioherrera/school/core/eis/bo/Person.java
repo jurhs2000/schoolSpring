@@ -1,5 +1,6 @@
 package com.julioherrera.school.core.eis.bo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,15 +21,20 @@ public class Person implements Serializable {
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "hire_date")
+    @Temporal(TemporalType.DATE)
     private Date hireDate;
     @Column(name = "enrollment_date")
+    @Temporal(TemporalType.DATE)
     private Date enrollmentDate;
     @OneToMany(mappedBy = "person")
     @Column(name = "student_id")
+    @JsonIgnore
     private Set<StudentGrade> studentGrade;
     @OneToMany(mappedBy = "person")
+    @JsonIgnore
     private Set<CourseInstructor> courseInstructors;
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "person")
+    @JsonIgnore
     //@OneToOne(optional = false)
     //@JoinColumn(name = "instructor_id", nullable = false, insertable = false, updatable = false)
     //@OneToOne(optional = false, mappedBy = "person")

@@ -1,5 +1,6 @@
 package com.julioherrera.school.core.eis.bo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,8 +14,8 @@ import java.util.Set;
 public class Department implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "department_iD")
-    private Long departmentID;
+    @Column(name = "department_id")
+    private Long departmentId;
     @Column(name = "name")
     private String name;
     @Column(name = "budget")
@@ -25,5 +26,6 @@ public class Department implements Serializable {
     @Column(name = "administrator")
     private String administrator;
     @OneToMany(mappedBy = "department")
+    @JsonIgnore
     private Set<Course> course;
 }
