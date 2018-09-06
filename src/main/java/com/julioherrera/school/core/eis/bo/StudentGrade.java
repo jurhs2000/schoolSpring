@@ -19,7 +19,6 @@ public class StudentGrade implements Serializable {
     private Course course;
     @ManyToOne
     @JoinColumn(name = "student_id")
-    @JsonIgnore
     private Person person;
     @Column(name = "grade")
     private String grade;

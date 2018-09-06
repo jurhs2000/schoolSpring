@@ -5,7 +5,9 @@ import com.julioherrera.school.core.bs.dao.StudentGradeRepository;
 import com.julioherrera.school.core.eis.bo.Person;
 import com.julioherrera.school.core.eis.bo.StudentGrade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -23,17 +25,17 @@ public class StudentGradeController {
         return studentGradeRepository.findAll();
     }
     @RequestMapping(method = RequestMethod.POST)
-    public Object save(@RequestBody(required = true) StudentGrade studentGrade) {
-        Person person = personRepository.findById(studentGrade.getPerson().getPersonId()).orElse(null);
-        System.out.println("hola");
-        System.out.println(person);
-        if (person == null) {
-            person = personRepository.save(studentGrade.getPerson());
-            studentGrade.setPerson(person);
+    public ResponseEntity<?> save(@RequestBody(required = true) StudentGrade studentGrade) {
+        Boolean personExists = personRepository.existsById(studentGrade.getPerson().getPersonId());
+        if (personExists == false) {
+            studentGrade.setPerson(personRepository.save(studentGrade.getPerson()));
+            studentGradeRepository.save(studentGrade);
         } else {
-            studentGrade.setPerson(person);
+            StudentGrade newStudentGrade = studentGradeRepository.save(studentGrade);
+            newStudentGrade.setPerson(studentGrade.getPerson());
+            studentGradeRepository.save(newStudentGrade);
         }
-        return studentGradeRepository.save(studentGrade);
+        return new ResponseEntity<String>("{\"message\":\"StudentGrade insertado correctamente!\"}", HttpStatus.OK);
     }
     @RequestMapping(value = "{id}", method = RequestMethod.PATCH)
     public Object update(@PathVariable("id") Long id, @RequestBody(required = true) StudentGrade studentGrade) {
