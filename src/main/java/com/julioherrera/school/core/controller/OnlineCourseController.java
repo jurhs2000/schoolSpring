@@ -12,8 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "api/v1/onlineCourse", produces = MediaType.APPLICATION_JSON_VALUE)
-@ResponseBody
+@RequestMapping(value = "/api/v1/online-course", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OnlineCourseController {
     @Autowired
     private OnlineCourseRepository onlineCourseRepository;
@@ -32,6 +31,6 @@ public class OnlineCourseController {
     }
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-        onlineCourseRepository.deleteById(id);
+            onlineCourseRepository.delete(id);
     }
 }

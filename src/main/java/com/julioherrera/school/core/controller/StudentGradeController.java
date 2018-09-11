@@ -26,8 +26,8 @@ public class StudentGradeController {
     }
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody(required = true) StudentGrade studentGrade) {
-        Boolean personExists = personRepository.existsById(studentGrade.getPerson().getPersonId());
-        if (personExists == false) {
+        Person personExists = personRepository.findOne(studentGrade.getPerson().getPersonId());
+        if (personExists == null) {
             studentGrade.setPerson(personRepository.save(studentGrade.getPerson()));
             studentGradeRepository.save(studentGrade);
         } else {
@@ -44,6 +44,6 @@ public class StudentGradeController {
     }
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-        studentGradeRepository.deleteById(id);
+        studentGradeRepository.delete(id);
     }
 }

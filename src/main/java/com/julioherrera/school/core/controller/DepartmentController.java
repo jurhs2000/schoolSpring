@@ -27,6 +27,6 @@ public class DepartmentController {
     }
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-        departmentRepository.deleteById(id);
+        departmentRepository.delete(id);
     }
 }

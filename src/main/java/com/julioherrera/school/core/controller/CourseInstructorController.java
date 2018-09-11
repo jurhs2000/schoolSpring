@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "api/v1/courseInstructor", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/courseInstructor", produces = MediaType.APPLICATION_JSON_VALUE)
 @ResponseBody
 public class CourseInstructorController {
     @Autowired

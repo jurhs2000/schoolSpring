@@ -27,6 +27,6 @@ public class OfficeAssignmentController {
     }
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
-        officeAssignmentRepository.deleteById(id);
+        officeAssignmentRepository.delete(id);
     }
 }
